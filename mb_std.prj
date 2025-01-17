@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ASCII"?>
+<sdkproject:SdkProject xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sdkproject="http://www.xilinx.com/sdkproject" name="mb_std" location="D:/a_dinhnamuet/nam_vivado/hello/mb_std" platform="D:/a_dinhnamuet/nam_vivado/hello/top_bd_wrapper_wrapper/export/top_bd_wrapper_wrapper/top_bd_wrapper_wrapper.xpfm" platformUID="xilinx:zedboard::0.0(custom)" systemProject="mb_std_system" sysConfig="top_bd_wrapper_wrapper" runtime="cpp" cpu="standalone_microblaze_0" cpuInstance="microblaze_0" os="standalone" mssSignature="3c9c1e5b29b392818768290f4d0f99f4">
+  <configuration name="Debug" id="xilinx.gnu.mb.exe.debug.856598459">
+    <configBuildOptions xsi:type="sdkproject:SdkOptions"/>
+    <lastBuildOptions xsi:type="sdkproject:SdkOptions"/>
+  </configuration>
+  <configuration name="Release" id="xilinx.gnu.mb.exe.release.1705994105" dirty="true">
+    <configBuildOptions xsi:type="sdkproject:SdkOptions"/>
+  </configuration>
+  <template appTemplateName="empty_application"/>
+</sdkproject:SdkProject>
