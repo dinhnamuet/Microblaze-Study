@@ -4,14 +4,21 @@
 #include <string.h>
 #include "sleep.h"
 #include "spi.h"
+#include "oled.h"
 #define SPI_CS		0
 
 struct irq_controller *ctrl;
 struct spidev *spi;
+struct oled ssd1306;
 
 static void serdev_rx(struct serdev_device *dev, const u8 *buf, size_t size)
 {
-	serdev_device_writebuf(dev, buf, size);
+	if (buf[0] == 0x00 && size == 1) {
+		oled_clear(&ssd1306);
+		oled_goto_xy(&ssd1306, 0, 0);
+	} else {
+		oled_send_string(&ssd1306, (const char *)buf, size);
+	}
 }
 static void do_irq(void) __attribute__((interrupt_handler));
 
@@ -39,6 +46,13 @@ int main(int argc, char *argv[])
 	mt_remap(&mt->reg, XPAR_AXI_TIMER_0_BASEADDR);
 	gpio_remap(&gpio, XPAR_AXI_GPIO_0_BASEADDR);
 
+	ssd1306.gpio	= &gpio;
+	ssd1306.spi		= spi;
+	ssd1306.vdd		= 0;
+	ssd1306.vbat	= 1;
+	ssd1306.rst		= 2;
+	ssd1306.dc		= 3;
+
 	dev->irq_ctrl = ctrl;
 	dev->mt = mt;
 	mt->irq_ctrl = ctrl;
@@ -51,6 +65,8 @@ int main(int argc, char *argv[])
 	global_irq_enable(ctrl);
 	timer_init(mt);
 	serdev_device_open(dev);
+	oled_init(&ssd1306, OLED_WIDTH, OLED_HEIGHT);
+	oled_powerup(&ssd1306);
 
 	while (1) {
 		__asm__ ("nop");
